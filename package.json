@@ -1,0 +1,38 @@
+{
+  "name": "car-nlse",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --pool=threads",
+    "dev": "tsx src/server.ts",
+    "start": "node dist/server.js",
+    "intent": "tsx src/cli.ts intent",
+    "explain-query": "tsx src/cli.ts explain-query",
+    "trace": "tsx src/cli.ts trace",
+    "search": "tsx src/cli.ts search",
+    "graph": "tsx src/cli.ts graph",
+    "stats": "tsx src/cli.ts stats",
+    "parser-benchmark": "tsx src/parser-benchmark.ts",
+    "intent-eval": "tsx src/intent-eval.ts",
+    "boundary-eval": "tsx src/boundary-eval.ts"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "csv-parse": "^5.5.6",
+    "fastify": "^4.28.1",
+    "openai": "^4.104.0",
+    "dotenv": "^16.4.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

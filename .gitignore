@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build and test output
+dist/
+coverage/
+.vitest/
+.nlse-cache/
+
+# Local environment and secrets
+.env
+.env.*
+
+# Local dataset. Download/place this at repo root when running locally.
+cars.csv
+
+# Local project notes
+PROJECT_GUIDE.md
+LOCAL_GUIDE.md
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

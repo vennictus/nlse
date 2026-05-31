@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car NLSE</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Retrieval-first natural language search</p>
+          <h1>Car NLSE</h1>
+        </div>
+        <div class="system-state">
+          <span id="status-dot"></span>
+          <span id="status">Ready</span>
+        </div>
+      </section>
+
+      <section class="command-surface">
+        <form id="search-form" class="search-form">
+          <textarea id="query" rows="3" spellcheck="true">I need a car for a growing family. My commute is long. I enjoy driving. I don't want something boring. I don't want something that'll bankrupt me.</textarea>
+          <div class="controls">
+            <label>
+              <span>Limit</span>
+              <input id="limit" type="number" min="1" max="20" value="5" />
+            </label>
+            <button type="button" class="ghost" data-query="red sports car, not electric, not German or American">Sports</button>
+            <button type="button" class="ghost" data-query="comfortable german sedan under $50k">Comfort</button>
+            <button type="button" class="ghost" data-query="reliable car under $40,000 with no SUVs, no hybrids, and not black">Hard filters</button>
+            <button type="submit">Search</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="workspace">
+        <aside class="inspect">
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Interpretation</h2>
+              <span>intent</span>
+            </div>
+            <div id="intent" class="intent-grid"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Logical Plan</h2>
+              <span id="query-id">pending</span>
+            </div>
+            <div id="plan" class="rows"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h2>Trace</h2>
+              <span>actual</span>
+            </div>
+            <div id="trace" class="rows"></div>
+          </section>
+        </aside>
+
+        <section class="results-column">
+          <div class="results-header">
+            <div>
+              <h2>Ranked Results</h2>
+              <p id="result-count">No search run</p>
+            </div>
+          </div>
+          <div id="results" class="results"></div>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

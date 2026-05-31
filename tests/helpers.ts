@@ -1,0 +1,72 @@
+import { buildStore, normalizeCar } from "../src/ingest.js";
+
+export function sampleStore() {
+  return buildStore([
+    normalizeCar({
+      manufacturer: "BMW",
+      model: "5 Series 530i Sedan",
+      year: "2020",
+      mileage: "35000.0",
+      engine: "2.0L I-4 engine with 248HP",
+      transmission: "Automatic",
+      drivetrain: "Rear-wheel Drive",
+      fuel_type: "Gasoline",
+      mpg: "25-33",
+      exterior_color: "Black",
+      interior_color: "",
+      accidents_or_damage: "0.0",
+      one_owner: "1.0",
+      personal_use_only: "1.0",
+      seller_name: "Dealer A",
+      seller_rating: "4.7",
+      driver_rating: "4.6",
+      driver_reviews_num: "100.0",
+      price_drop: "500.0",
+      price: "42000.0"
+    }, 1),
+    normalizeCar({
+      manufacturer: "Toyota",
+      model: "RAV4 Hybrid",
+      year: "2021",
+      mileage: "22000.0",
+      engine: "2.5L I4 Hybrid",
+      transmission: "Automatic CVT",
+      drivetrain: "All-wheel Drive",
+      fuel_type: "Hybrid",
+      mpg: "41-38",
+      exterior_color: "Gray",
+      interior_color: "Black",
+      accidents_or_damage: "0.0",
+      one_owner: "0.0",
+      personal_use_only: "1.0",
+      seller_name: "Dealer B",
+      seller_rating: "4.2",
+      driver_rating: "4.8",
+      driver_reviews_num: "80.0",
+      price_drop: "",
+      price: "33000.0"
+    }, 2),
+    normalizeCar({
+      manufacturer: "Ford",
+      model: "F-150 XL",
+      year: "2019",
+      mileage: "80000.0",
+      engine: "5.0L V8 engine with 395HP",
+      transmission: "Automatic",
+      drivetrain: "Four-wheel Drive",
+      fuel_type: "Gasoline",
+      mpg: "17-23",
+      exterior_color: "White",
+      interior_color: "Gray",
+      accidents_or_damage: "1.0",
+      one_owner: "0.0",
+      personal_use_only: "0.0",
+      seller_name: "Dealer C",
+      seller_rating: "3.9",
+      driver_rating: "4.3",
+      driver_reviews_num: "50.0",
+      price_drop: "1000.0",
+      price: "28000.0"
+    }, 3)
+  ]);
+}
