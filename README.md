@@ -11,7 +11,7 @@
 
 A retrieval-first natural language search engine for used cars.
 
-This is not a chatbot wrapper. It is a small search engine that turns messy human goals into structured intent, compiles that intent into an inspectable logical plan, executes deterministic operators over indexed data, ranks eligible results, and explains what happened.
+It is a small search engine that turns messy human goals into structured intent, compiles that intent into an inspectable logical plan, executes deterministic operators over indexed data, ranks eligible results, and explains what happened.
 
 Example query:
 
