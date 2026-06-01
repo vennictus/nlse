@@ -167,14 +167,15 @@ export function executeSearch(store: CarStore, query: string, intent: SearchInte
     operators: plan.operators.filter((operator) => !["BodyTypeFilterOperator", "TagFilterOperator"].includes(operator.type))
   };
   const relaxed = executePlan(store, query, intent, relaxedPlan);
+  const relaxStep = {
+    operator: "relax(bodyType, tag)",
+    before: 0,
+    after: relaxed.length,
+    elapsedMs: 0,
+    note: "No exact candidates; relaxed semantic/body preference filters while preserving hard exclusions."
+  };
   for (const result of relaxed) {
-    result.executionTrace.unshift({
-      operator: "relax(bodyType, tag)",
-      before: 0,
-      after: relaxed.length,
-      elapsedMs: 0,
-      note: "No exact candidates; relaxed semantic/body preference filters while preserving hard exclusions."
-    });
+    result.executionTrace = [relaxStep, ...result.executionTrace];
     result.explanationBullets.unshift("No exact match; relaxed body/tag preferences while preserving hard exclusions.");
   }
   return relaxed;
@@ -206,7 +207,7 @@ function executePlan(store: CarStore, query: string, intent: SearchIntent, plan:
       validation: validateResult(car, intent),
       queryId: plan.queryId,
       logicalPlan: plan,
-      executionTrace: context.trace,
+      executionTrace: [...context.trace],
       explanationBullets: explain(car, context)
     };
   });

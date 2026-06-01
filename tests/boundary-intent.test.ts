@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import { executeSearch } from "../src/execution.js";
 import { buildStore, normalizeCar } from "../src/ingest.js";
 import { localParseIntent } from "../src/intent.js";
+import { applyLocalGuardrails } from "../src/intent-normalizer.js";
 import { createLogicalPlan } from "../src/planner.js";
+import type { SearchIntent } from "../src/types.js";
 import { sampleStore } from "./helpers.js";
 
 describe("boundary intent parsing", () => {
@@ -223,6 +225,12 @@ describe("boundary intent parsing", () => {
     expect(intent.mileage?.max?.value).toBe(80000);
   });
 
+  it("parses common mileage formats", () => {
+    expect(localParseIntent("under 1500 miles").mileage?.max?.value).toBe(1500);
+    expect(localParseIntent("under 1,500 miles").mileage?.max?.value).toBe(1500);
+    expect(localParseIntent("under 80k miles").mileage?.max?.value).toBe(80000);
+  });
+
   it("captures grouped brand exclusions and plural EV wording", () => {
     const intent = localParseIntent("show me anything except porsche audi bmw and mercedes, no EVs");
     expect(intent.excludeBrands?.value).toEqual(expect.arrayContaining(["Porsche", "Audi", "BMW", "Mercedes-Benz"]));
@@ -287,6 +295,78 @@ describe("boundary intent parsing", () => {
     expect(intent.tags?.value).toEqual(expect.arrayContaining(["performance", "enthusiast"]));
     expect(intent.transmissions?.value).toContain("Manual");
     expect(intent.price?.max?.value).toBe(20000);
+  });
+
+  it("does not duplicate relaxed trace rows across fallback results", () => {
+    const store = buildStore([
+      normalizeCar({
+        manufacturer: "Toyota",
+        model: "Corolla LE",
+        year: "2020",
+        mileage: "1000",
+        engine: "2.0L I4",
+        transmission: "Automatic",
+        drivetrain: "Front-wheel Drive",
+        fuel_type: "Gasoline",
+        mpg: "30-38",
+        exterior_color: "White",
+        interior_color: "Black",
+        accidents_or_damage: "0.0",
+        one_owner: "1.0",
+        personal_use_only: "1.0",
+        seller_name: "Dealer",
+        seller_rating: "4.8",
+        driver_rating: "4.7",
+        driver_reviews_num: "5.0",
+        price_drop: "",
+        price: "21000"
+      }, 1),
+      normalizeCar({
+        manufacturer: "Honda",
+        model: "Civic LX",
+        year: "2021",
+        mileage: "2000",
+        engine: "2.0L I4",
+        transmission: "Automatic",
+        drivetrain: "Front-wheel Drive",
+        fuel_type: "Gasoline",
+        mpg: "31-40",
+        exterior_color: "Silver",
+        interior_color: "Black",
+        accidents_or_damage: "0.0",
+        one_owner: "1.0",
+        personal_use_only: "1.0",
+        seller_name: "Dealer",
+        seller_rating: "4.8",
+        driver_rating: "4.7",
+        driver_reviews_num: "5.0",
+        price_drop: "",
+        price: "22000"
+      }, 2)
+    ]);
+    const query = "family car under 30k";
+    const intent = localParseIntent(query);
+    const plan = createLogicalPlan(intent, store);
+    const results = executeSearch(store, query, intent, plan);
+
+    expect(results.length).toBe(2);
+    for (const result of results) {
+      expect(result.executionTrace.filter((step) => step.operator === "relax(bodyType, tag)")).toHaveLength(1);
+    }
+  });
+
+  it("uses local guardrails to correct LLM misses on structured fields", () => {
+    const llmIntent: SearchIntent = {
+      originalQuery: "manual miata under 20k",
+      confidence: 0.4,
+      notes: ["Simulated under-extracted LLM intent."]
+    };
+    const guarded = applyLocalGuardrails("manual miata under 20k", llmIntent);
+
+    expect(guarded.brands?.value).toContain("Mazda");
+    expect(guarded.models?.value).toContain("MX-5 Miata");
+    expect(guarded.transmissions?.value).toContain("Manual");
+    expect(guarded.price?.max?.value).toBe(20000);
   });
 
   it("handles Brace-style goal language", () => {

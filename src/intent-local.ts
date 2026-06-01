@@ -128,8 +128,11 @@ export function compileLocalIntent(query: string, limit?: number): SearchIntent 
   if (/cheaper/.test(q) && /porsche cayman/.test(q)) intent.price = { max: field(35000, 0.55, "inferred") };
   const minYear = q.match(/\b(?:after|newer than|since)\s+(20\d{2}|19\d{2})\b/);
   if (minYear) intent.year = { min: field(Number(minYear[1]), 0.9) };
-  const maxMileage = q.match(/\b(?:under|below|less than|max|up to)\s+(\d{1,3})(?:\s*(k|thousand)|,\d{3})?\s+miles?\b/);
-  if (maxMileage) intent.mileage = { max: field(Number(maxMileage[1]) * (maxMileage[2] || q.includes(`${maxMileage[1]}k`) || q.includes(`${maxMileage[1]},`) ? 1000 : 1), 0.86) };
+  const maxMileage = q.match(/\b(?:under|below|less than|max|up to)\s+(\d[\d,]*(?:\.\d+)?)\s*(k|thousand)?\s+miles?\b/);
+  if (maxMileage) {
+    const amount = Number(maxMileage[1].replace(/,/g, ""));
+    intent.mileage = { max: field(amount * (maxMileage[2] ? 1000 : 1), 0.86) };
+  }
 
   if (/cheapest|lowest price/.test(q)) intent.sort = field<SortMode>("price_asc");
   else if (/newest/.test(q)) intent.sort = field<SortMode>("year_desc");

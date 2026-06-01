@@ -7,9 +7,16 @@ export function applyLocalGuardrails(query: string, intent: SearchIntent, limit?
   const guarded = normalizeIntent({
     ...intent,
     originalQuery: intent.originalQuery || query,
+    brands: mergeField(intent.brands, local.brands),
+    models: mergeField(intent.models, local.models),
+    countries: mergeField(intent.countries, local.countries),
     tags: mergeField(intent.tags, local.tags),
     bodyTypes: mergeField(intent.bodyTypes, local.bodyTypes),
+    fuelTypes: mergeField(intent.fuelTypes, local.fuelTypes),
+    transmissions: mergeField(intent.transmissions, local.transmissions),
+    drivetrains: mergeField(intent.drivetrains, local.drivetrains),
     colors: mergeField(intent.colors, local.colors),
+    booleans: mergeBooleans(intent.booleans, local.booleans),
     excludeBrands: mergeField(intent.excludeBrands, local.excludeBrands),
     excludeCountries: mergeField(intent.excludeCountries, local.excludeCountries),
     excludeBodyTypes: mergeField(intent.excludeBodyTypes, local.excludeBodyTypes),
@@ -90,4 +97,13 @@ function removeExcluded<T extends string>(included?: IntentField<T[]>, excluded?
   const blocked = new Set(excluded.value.map((value) => value.toLowerCase()));
   const value = included.value.filter((item) => !blocked.has(item.toLowerCase()));
   return value.length ? { ...included, value } : undefined;
+}
+
+function mergeBooleans(
+  existing?: Record<string, IntentField<boolean>>,
+  guardrail?: Record<string, IntentField<boolean>>
+): Record<string, IntentField<boolean>> | undefined {
+  if (!existing) return guardrail;
+  if (!guardrail) return existing;
+  return { ...guardrail, ...existing };
 }
