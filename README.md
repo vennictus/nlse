@@ -193,13 +193,20 @@ If no exact candidate exists, semantic/body preferences may relax. Hard exclusio
 
 ## Dataset
 
-The app expects a Kaggle-style `cars.csv` at the repository root:
+The repo includes a small `cars.sample.csv` so reviewers can run the project immediately:
+
+```powershell
+$env:CARS_CSV="cars.sample.csv"
+npm run dev
+```
+
+For the full dataset, place the Kaggle-style CSV at the repository root:
 
 ```text
 cars.csv
 ```
 
-The dataset is not committed because it is large.
+The full dataset is not committed because it is large and exceeds normal GitHub file-size limits.
 
 Override the path:
 
@@ -225,6 +232,14 @@ npm run build
 npm test
 npm run parser-benchmark
 npm run intent-eval
+```
+
+Quick smoke test with the included sample:
+
+```powershell
+$env:CARS_CSV="cars.sample.csv"
+npm run stats
+npm run search -- 'red sports car, not electric, not German or American'
 ```
 
 ## LLM Configuration

@@ -1,0 +1,17 @@
+manufacturer,model,year,mileage,engine,transmission,drivetrain,fuel_type,mpg,exterior_color,interior_color,accidents_or_damage,one_owner,personal_use_only,seller_name,seller_rating,driver_rating,driver_reviews_num,price_drop,price
+Subaru,BRZ Premium,2023,3739,228 hp 2.4L H4,Manual,Rear-wheel Drive,Gasoline,20-27,Ignition Red,Black,0.0,1.0,1.0,Sample Subaru,4.8,4.9,24.0,,33000
+Toyota,GR86 Premium,2023,4764,228 hp 2.4L H4,Manual,Rear-wheel Drive,Gasoline,20-27,Track Red,Black,0.0,1.0,1.0,Sample Toyota,4.7,4.8,18.0,,36000
+Toyota,Supra 3.0,2020,2200,382 hp 3.0L I6,Automatic,Rear-wheel Drive,Gasoline,22-30,Renaissance Red,Black,0.0,1.0,1.0,Sample Performance,4.6,4.9,35.0,,61855
+Porsche,718 Cayman,2022,1000,300 hp 2.0L H4,Automatic,Rear-wheel Drive,Gasoline,20-26,Guards Red,Black,0.0,1.0,1.0,Sample Porsche,4.9,4.9,20.0,,100000
+Chevrolet,Corvette Stingray,2021,2000,490 hp 6.2L V8,Automatic,Rear-wheel Drive,Gasoline,15-27,Torch Red,Black,0.0,1.0,1.0,Sample Chevy,4.9,4.9,40.0,,80000
+Audi,e-tron GT Premium Plus,2022,9500,Electric motor,Automatic,All-wheel Drive,Gasoline,81-83,Tango Red,Black,0.0,1.0,1.0,Sample Audi,4.7,4.8,16.0,,76000
+Mazda,MX-5 Miata Club,2021,14500,181 hp 2.0L I4,Manual,Rear-wheel Drive,Gasoline,26-34,Soul Red,Black,0.0,1.0,1.0,Sample Mazda,4.7,4.8,30.0,,28500
+Toyota,Camry SE,2023,2412,203 hp 2.5L I4,Automatic,Front-wheel Drive,Gasoline,28-39,White,Black,0.0,1.0,1.0,Sample Toyota Daily,4.8,4.7,44.0,,32975
+Toyota,Venza LE,2023,1064,219 hp 2.5L I4,Automatic,All-wheel Drive,Hybrid,40-37,Silver,Gray,0.0,1.0,1.0,Sample Toyota Family,4.8,4.7,22.0,,39988
+Honda,Odyssey EX-L,2021,42000,280 hp 3.5L V6,Automatic,Front-wheel Drive,Gasoline,19-28,Blue,Gray,0.0,1.0,1.0,Sample Honda Family,4.7,4.8,55.0,,35500
+Lexus,ES 350,2022,18500,302 hp 3.5L V6,Automatic,Front-wheel Drive,Gasoline,22-32,Black,Beige,0.0,1.0,1.0,Sample Lexus,4.9,4.8,38.0,,42000
+Hyundai,Sonata Hybrid Limited,2022,6467,192 hp 2.0L I4,Automatic,Front-wheel Drive,Hybrid,45-51,Silver,Black,0.0,1.0,1.0,Sample Hyundai,4.8,4.7,26.0,,31249
+Volvo,V60 Cross Country,2021,21000,250 hp 2.0L I4,Automatic,All-wheel Drive,Gasoline,22-31,White,Black,0.0,1.0,1.0,Sample Volvo,4.7,4.8,20.0,,39000
+Jeep,Wrangler Rubicon,2020,36000,285 hp 3.6L V6,Manual,Four-wheel Drive,Gasoline,17-23,Green,Black,0.0,1.0,1.0,Sample Jeep,4.6,4.7,34.0,,41000
+BMW,330i,2021,25000,255 hp 2.0L I4,Automatic,Rear-wheel Drive,Gasoline,26-36,Blue,Black,0.0,1.0,1.0,Sample BMW,4.8,4.7,28.0,,38500
+Mercedes-Benz,E-Class E 350,2021,22000,255 hp 2.0L I4,Automatic,Rear-wheel Drive,Gasoline,22-31,Silver,Black,0.0,1.0,1.0,Sample Mercedes,4.8,4.8,31.0,,46500
